@@ -20,13 +20,13 @@ class HistogramHandler:
         self.__green_cdf = np.zeros((1, 256))
         self.__blue_cdf = np.zeros((1, 256))
         if make_cdf:
-            rgb = get_img_cdfs(img_arr)
+            cdfs = get_img_cdfs(img_arr)
             if is_color:
-                self.__red_cdf = rgb[0]
-                self.__green_cdf = rgb[1]
-                self.__blue_cdf = rgb[2]
+                self.__red_cdf = cdfs[0]
+                self.__green_cdf = cdfs[1]
+                self.__blue_cdf = cdfs[2]
             else:
-                self.__gray_cdf = rgb[0]
+                self.__gray_cdf = cdfs[0]
 
     def get__gray_cdf(self):
         return self.__gray_cdf
@@ -80,19 +80,29 @@ def get_img_cdfs(img_arr):
     return cdf_list
 
 
-# def match(src: HistogramHandler, ref: HistogramHandler):
-#     if ref.is_colorful() and (not src.is_colorful()):
-#         print("Can't match grayscale image to rgb image yet!")
-#     else:
-#         if ref.is_colorful() and src.is_colorful():
-#
-#         elif (not ref.is_colorful()) and src.is_colorful():
-#
-#         else:
-#
-# def map_channel(src_cdf, ref_cdf):
-#
-#     for i in range(256):
+def map_channel(src_cdf, ref_cdf, src_channel_img_arr):
+    mapped_img_channel_arr = np.copy(src_channel_img_arr)
+    for i in range(256):
+        new_val = __map_value2new_value(src_cdf[0, i], ref_cdf)
+        replace_value(mapped_img_channel_arr, i, new_val)
+
+    return mapped_img_channel_arr
+
+
+def replace_value(src_channel_img_arr, old_val, new_val):
+    for i in range(src_channel_img_arr.shape[0]):
+        for j in range(src_channel_img_arr.shape[1]):
+            if src_channel_img_arr[i, j] == old_val:
+                src_channel_img_arr[i, j] = new_val
+
+
+def __map_value2new_value(val, ref_cdf):
+    nearest_val = 0
+    for i in range(256):
+        if abs(ref_cdf[0, i] - val) < abs(ref_cdf[0, nearest_val] - val):
+            nearest_val = i
+
+    return nearest_val
 
 
 def rgb2gray(color_img):
