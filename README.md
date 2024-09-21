@@ -8,8 +8,7 @@ This project is divided into two parts, both showcasing applications of linear a
 The Lights Out puzzle is a grid-based game where each cell can either be "on" (1) or "off" (0). The goal is to turn all the lights off by toggling cells. Toggling a cell also toggles its adjacent neighbors. Using linear algebra techniques such as row reduction, this program finds the solution by determining the order of cells that need to be clicked to turn off all the lights. If no solution exists, it reports that as well.
 
 ### Demo
-<video src="https://github.com/user-attachments/assets/b4e4a57d-3d56-4f42-99d9-2805a2c8f21c">
-<video src="https://github.com/user-attachments/assets/d9c0181e-ae44-4c29-a7ee-a666aba16ce8">
+<video src="https://github.com/user-attachments/assets/b4e4a57d-3d56-4f42-99d9-2805a2c8f21c">|
 
 
 ### How to Use
@@ -32,6 +31,3 @@ Histogram matching involves transforming the distribution of pixel intensities i
     - Place your "Reference image" in a file named `Reference.jpg`.
     - Place your "Source image" in a file named `Source.jpg`.
 2. Run `runnable.py`, and the matched image will be created in the same directory as `matched_img.jpg`.
-
-
-
